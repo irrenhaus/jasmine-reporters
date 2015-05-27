@@ -146,6 +146,12 @@
         };
         self.specDone = function(spec) {
             spec = getSpec(spec);
+            
+            if (!spec._suite) {
+                // specStarted was never called!
+                self.specStarted(spec);
+            }
+            
             spec._endTime = new Date();
             if (isSkipped(spec)) { spec._suite._skipped++; }
             if (isDisabled(spec)) { spec._suite._disabled++; }
